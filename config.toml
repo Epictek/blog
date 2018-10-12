@@ -36,7 +36,7 @@ pygmentsCodeFences = true
 [params]
   github = "epictek"
   twitter = "epictek"
-  linkedin = "kieran-coldron-3611a489"
+  linkedin = "kieran-coldron"
   email = "kieran@coldron.com"
 
 [params.colors]
