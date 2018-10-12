@@ -1,0 +1,87 @@
+---
+title: "Streaming to twitch with NDI and FFmpeg"
+date: 2018-10-11T22:48:31+01:00
+draft: false
+---
+
+
+My girlfriend has recently been streaming pubg on twitch, she asked me to set everything up for her so of course I had to overcomplicate it.
+
+# What is NDI? 
+NDI is a standard designed for low latency video feeds over a network. Why is this useful?  
+Well streaming to services such as Twitch requires a decent amount of processing power due to the encoding required. 
+NDI is an almost "lossless" stream meaning that we can offload the processing to a second "streaming" PC leaving more
+CPU for playing games which is especially useful for games such as Pubg that are very CPU demanding.
+
+# Why not RTMP?
+RTMP would work fine but it doesn't offer the same latency and benifits of NDI.
+
+# Guide 
+OBS already has NDI plugins which can be obtained from [here](https://obsproject.com/forum/resources/obs-ndi-newtek-ndi%E2%84%A2-integration-into-obs-studio.528/) but I wanted to
+use FFMPEG on the streaming PC so I didn't need to have another GUI application
+open, OBS has a lot of unneeded features. OBS will still be used on the gaming
+PC as it offers some very useful features such as scenes and it's the easiest way to stream on windows.
+
+First of all the NDI SDK from [here](https://www.newtek.com/ndi/sdk/#download-sdk) or using one of these direct download links to avoid having to give any personal details: 
+
+* [new.tk short link, this currently does not work?](http://new.tk/NDISDKLINUX)
+* [rackcnd link, this might break at any time](http://514f211588de67e4fdcf-437b8dd50f60b69cf0974b538e50585b.r63.cf1.rackcdn.com/Utilities/SDK/NDI_SDK_Linux_v2/InstallNDISDK_v3_Linux.sh)
+
+Now we have downloaded the sdk we need to extract it and move the libary files to the correct location.
+```
+cd ~/Downloads/
+sh InstallNDISDK_v3_Linux.sh
+sudo cp -r NDI SDK for Linux/lib/x86_64-linux-gnu/* /usr/lib/
+sudo mkdir /user/include/ndi
+sudo cp -r /usr/include/ndi/include/* /usr/include/ndi/
+```
+
+Now we need to build ffmpeg with NDI.
+```
+# clone ffmpeg in to ffmpeg-ndi
+git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git ffmpeg-ndi
+cd ffmpeg-ndi
+# configure ffmpeg pointing to where the NDI sdk is installed
+`./configure --enable-nonfree --enable-libndi_newtek --extra-cflags="-I/usr/include/ndi/" --extra-ldflags="-L/usr/include/ndi/" --enable-libx264 --enable-gpl
+make
+```
+
+Now we should be able to use NDI, first Start a NDI input such as OBS and the type the following command to list NDI inputs on the network
+```
+./ffmpeg -f libndi_newtek -find_sources 1 -i dummy
+```
+
+Lets preview the NDI input to make sure everything is working, replace the given input name with the result from the previous command.
+```
+./ffplay -f libndi_newtek -i "DESKTOP-18HJ647 (JessPC)"
+```
+
+The following script can be used for streaming to twitch, change the variables according to your setup.
+```
+INRES="1920x1080" # input resolution
+OUTRES="1280x720" # output resolution
+FPS="30" # target FPS
+GOP="60" # i-frame interval, should be double of FPS,
+GOPMIN="30" # min i-frame interval, should be equal to fps
+THREADS="0" # use as many threads as possible
+CBR="3000k" # constant bitrate (should be between 1000k - 3000k)
+QUALITY="ultrafast"  # one of the many FFMPEG presets
+AUDIO_SRATE="44100"
+AUDIO_CHANNELS="2" #1 for mono output, 2 for stereo
+AUDIO_ERATE="360k" #audio encoding rate
+STREAM_KEY="" #your twitch stream key goes here
+SERVER="live-lhr" #  http://bashtech.net/twitch/ingest.php for list
+NDI_INPUT="DESKTOP-18HJ647 (JessPC)"
+
+~/ffmpeg-ndi/ffmpeg  -f libndi_newtek -i "$NDI_INPUT" -s "$INRES" -r "$FPS" \
+-f flv -ac $AUDIO_CHANNELS -b:a $AUDIO_ERATE -ar $AUDIO_SRATE \
+-vcodec libx264 -g $GOP -keyint_min $GOPMIN -b:v $CBR -minrate $CBR \
+-maxrate $CBR  -pix_fmt yuv420p -s $OUTRES \
+-acodec libmp3lame -threads $THREADS -strict normal \
+-bufsize $CBR "rtmp://$SERVER.twitch.tv/app/$STREAM_KEY"
+```
+
+Sources and useful resources
+
+* https://www.ffmpeg.org/ffmpeg-devices.html#libndi_005fnewtek
+* https://wiki.archlinux.org/index.php/Streaming_to_twitch.tv
