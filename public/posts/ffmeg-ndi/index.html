@@ -11,30 +11,30 @@
 
 <link rel="canonical" href="/posts/ffmeg-ndi/">
 <meta property="og:title" content="Streaming to twitch with NDI and FFmpeg" />
-<meta property="og:description" content="My girlfriend has recently been streaming pubg on twitch, she asked me to set everything up for her so of course I had to overcomplicate it.
+<meta property="og:description" content="My girlfriend has recently been streaming PUBG on Twitch, she asked me to set everything up for her so of course I had to overcomplicate it.
 What is NDI? NDI is a standard designed for low latency video feeds over a network. Why is this useful?
-Well streaming to services such as Twitch requires a decent amount of processing power due to the encoding required. NDI is an almost &ldquo;lossless&rdquo; stream meaning that we can offload the processing to a second &ldquo;streaming&rdquo; PC leaving more CPU for playing games which is especially useful for games such as Pubg that are very CPU demanding." />
+Well streaming to services such as Twitch requires a decent amount of processing power due to the encoding required. NDI is an almost &ldquo;lossless&rdquo; stream meaning that we can offload the processing to a second &ldquo;streaming&rdquo; PC leaving more CPU for playing games which is especially useful for games such as PUBG that are very CPU demanding." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/ffmeg-ndi/" /><meta property="article:published_time" content="2018-10-11T22:48:31&#43;01:00"/>
 <meta property="article:modified_time" content="2018-10-11T22:48:31&#43;01:00"/>
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Streaming to twitch with NDI and FFmpeg"/>
-<meta name="twitter:description" content="My girlfriend has recently been streaming pubg on twitch, she asked me to set everything up for her so of course I had to overcomplicate it.
+<meta name="twitter:description" content="My girlfriend has recently been streaming PUBG on Twitch, she asked me to set everything up for her so of course I had to overcomplicate it.
 What is NDI? NDI is a standard designed for low latency video feeds over a network. Why is this useful?
-Well streaming to services such as Twitch requires a decent amount of processing power due to the encoding required. NDI is an almost &ldquo;lossless&rdquo; stream meaning that we can offload the processing to a second &ldquo;streaming&rdquo; PC leaving more CPU for playing games which is especially useful for games such as Pubg that are very CPU demanding."/>
+Well streaming to services such as Twitch requires a decent amount of processing power due to the encoding required. NDI is an almost &ldquo;lossless&rdquo; stream meaning that we can offload the processing to a second &ldquo;streaming&rdquo; PC leaving more CPU for playing games which is especially useful for games such as PUBG that are very CPU demanding."/>
 
 
 
 <meta itemprop="name" content="Streaming to twitch with NDI and FFmpeg">
-<meta itemprop="description" content="My girlfriend has recently been streaming pubg on twitch, she asked me to set everything up for her so of course I had to overcomplicate it.
+<meta itemprop="description" content="My girlfriend has recently been streaming PUBG on Twitch, she asked me to set everything up for her so of course I had to overcomplicate it.
 What is NDI? NDI is a standard designed for low latency video feeds over a network. Why is this useful?
-Well streaming to services such as Twitch requires a decent amount of processing power due to the encoding required. NDI is an almost &ldquo;lossless&rdquo; stream meaning that we can offload the processing to a second &ldquo;streaming&rdquo; PC leaving more CPU for playing games which is especially useful for games such as Pubg that are very CPU demanding.">
+Well streaming to services such as Twitch requires a decent amount of processing power due to the encoding required. NDI is an almost &ldquo;lossless&rdquo; stream meaning that we can offload the processing to a second &ldquo;streaming&rdquo; PC leaving more CPU for playing games which is especially useful for games such as PUBG that are very CPU demanding.">
 
 
 <meta itemprop="datePublished" content="2018-10-11T22:48:31&#43;01:00" />
 <meta itemprop="dateModified" content="2018-10-11T22:48:31&#43;01:00" />
-<meta itemprop="wordCount" content="528">
+<meta itemprop="wordCount" content="537">
 
 
 
@@ -170,14 +170,14 @@ th {
     <h1 class="title"> Streaming to twitch with NDI and FFmpeg </h1>
     <div class="content"> 
 
-<p>My girlfriend has recently been streaming pubg on twitch, she asked me to set everything up for her so of course I had to overcomplicate it.</p>
+<p>My girlfriend has recently been streaming PUBG on Twitch, she asked me to set everything up for her so of course I had to overcomplicate it.</p>
 
 <h1 id="what-is-ndi">What is NDI?</h1>
 
 <p>NDI is a standard designed for low latency video feeds over a network. Why is this useful?<br />
 Well streaming to services such as Twitch requires a decent amount of processing power due to the encoding required.
 NDI is an almost &ldquo;lossless&rdquo; stream meaning that we can offload the processing to a second &ldquo;streaming&rdquo; PC leaving more
-CPU for playing games which is especially useful for games such as Pubg that are very CPU demanding.</p>
+CPU for playing games which is especially useful for games such as PUBG that are very CPU demanding.</p>
 
 <h1 id="why-not-rtmp">Why not RTMP?</h1>
 
@@ -187,7 +187,7 @@ CPU for playing games which is especially useful for games such as Pubg that are
 
 <p>OBS already has NDI plugins which can be obtained from <a href="https://obsproject.com/forum/resources/obs-ndi-newtek-ndi%E2%84%A2-integration-into-obs-studio.528/">here</a> but I wanted to
 use FFMPEG on the streaming PC so I didn&rsquo;t need to have another GUI application
-open, OBS has a lot of unneeded features. OBS will still be used on the gaming
+open, OBS has a lot of unnecessary features for the use case of just rebroadcasting a stream. OBS will still be used on the gaming
 PC as it offers some very useful features such as scenes and it&rsquo;s the easiest way to stream on windows.</p>
 
 <p>First of all the NDI SDK from <a href="https://www.newtek.com/ndi/sdk/#download-sdk">here</a> or using one of these direct download links to avoid having to give any personal details:</p>
