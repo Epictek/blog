@@ -34,10 +34,9 @@ pygmentsCodeFences = true
   description = "Personal blog."
 
 [params]
-  github = "github id"
-  gitlab = "gitlab id"
-  twitter = "twitter id"
-  linkedin = "linkedin id"
+  github = "epictek"
+  twitter = "epictek"
+  linkedin = "kieran-coldron-3611a489"
   email = "kieran@coldron.com"
 
 [params.colors]
