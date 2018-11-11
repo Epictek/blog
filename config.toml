@@ -7,15 +7,18 @@ title = "Kieran Coldron"
 copyright = "Copyright (c) 2018, all rights reserved."
 theme = "hugo-dusk"
 
+# use Chroma for syntax highlight
+pygmentsStyle = "dracula" # other dark style options: vim, fruity, monokai
+# enable syntax highlight for code blocks
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+pygmentsCodefencesGuessSyntax = true
+
 [author]
   name = "Kieran Coldron"
 
 SectionPagesMenu = "main"
 
-# use Chroma for syntax highlight
-pygmentsStyle = "native" # other dark style options: vim, fruity, monokai
-# enable syntax highlight for code blocks
-pygmentsCodeFences = true
 
 [[menu.main]]
   name = "Posts"
@@ -41,8 +44,8 @@ pygmentsCodeFences = true
 
 [params.colors]
   # hugo-dusk colors
-  background = "#101010" # background color for the site
-  main = "#99cc66"
-  text = "#dbdbdb"
-  code-quote-bg = "#1D1F21" # background color for quotes and code blocks
-  copyright = "#404040" # copyright text color
+  background = "#100f24" # background color for the site
+  main = "#b948be"
+  text = "#d0d0d0"
+  code-quote-bg = "#1d1c45 !important" # background color for quotes and code blocks
+  copyright = "#3b73bd" # copyright text color

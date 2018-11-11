@@ -10,11 +10,11 @@ My girlfriend has recently been streaming PUBG on Twitch, she asked me to set ev
 # What is NDI? 
 NDI is a standard designed for low latency video feeds over a network. Why is this useful?  
 Well streaming to services such as Twitch requires a decent amount of processing power due to the encoding required. 
-NDI is an almost "lossless" stream meaning that we can offload the encoding to a second "streaming" PC leaving more
+NDI is an almost "lossless" stream meaning that we can offload the proc to a second "streaming" PC leaving more
 CPU for playing games which is especially useful for games such as PUBG that are very CPU demanding.
 
 # Why not RTMP?
-RTMP would work fine but it doesn't offer the same latency benefits of NDI.
+RTMP would work fine but it doesn't offer the same latency and benifits of NDI.
 
 # Guide 
 OBS already has NDI plugins which can be obtained from [here](https://obsproject.com/forum/resources/obs-ndi-newtek-ndi%E2%84%A2-integration-into-obs-studio.528/) but I wanted to
@@ -28,8 +28,7 @@ First of all the NDI SDK from [here](https://www.newtek.com/ndi/sdk/#download-sd
 * [rackcnd link, this might break at any time](http://514f211588de67e4fdcf-437b8dd50f60b69cf0974b538e50585b.r63.cf1.rackcdn.com/Utilities/SDK/NDI_SDK_Linux_v2/InstallNDISDK_v3_Linux.sh)
 
 Now we have downloaded the sdk we need to extract it and move the libary files to the correct location.
-
-```bash
+```
 cd ~/Downloads/
 sh InstallNDISDK_v3_Linux.sh
 sudo cp -r NDI SDK for Linux/lib/x86_64-linux-gnu/* /usr/lib/
@@ -38,7 +37,7 @@ sudo cp -r /usr/include/ndi/include/* /usr/include/ndi/
 ```
 
 Now we need to build ffmpeg with NDI.
-```bash
+```
 # clone ffmpeg in to ffmpeg-ndi
 git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git ffmpeg-ndi
 cd ffmpeg-ndi
@@ -48,18 +47,17 @@ make
 ```
 
 Now we should be able to use NDI, first Start a NDI input such as OBS and the type the following command to list NDI inputs on the network
-```bash
+```
 ./ffmpeg -f libndi_newtek -find_sources 1 -i dummy
 ```
 
 Lets preview the NDI input to make sure everything is working, replace the given input name with the result from the previous command.
-```bash
+```
 ./ffplay -f libndi_newtek -i "DESKTOP-18HJ647 (JessPC)"
 ```
 
 The following script can be used for streaming to twitch, change the variables according to your setup.
-
-```bash
+```
 INRES="1920x1080" # input resolution
 OUTRES="1280x720" # output resolution
 FPS="30" # target FPS
